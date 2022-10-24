@@ -76,7 +76,7 @@ sfml_set_custom_stdlib(sfml-graphics)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h States/State.cpp States/State.h States/GameState.cpp States/GameState.h States/MainMenuState.cpp States/MainMenuState.h States/GameState.cpp States/GameState.h)
 
 ###############################################################################
 
