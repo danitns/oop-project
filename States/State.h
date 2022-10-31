@@ -23,6 +23,8 @@ public:
 
     virtual ~State();
 
+    friend std::ostream& operator<<(std::ostream& os, const State& state);
+
     /// Functions
     sf::Vector2f getWindowSize() const;
 

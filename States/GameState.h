@@ -17,6 +17,8 @@ public:
 
     virtual ~GameState();
 
+    //friend std::ostream& operator<<(std::ostream& os, const GameState& gameState);
+
     /// Functions
     void endState();
 

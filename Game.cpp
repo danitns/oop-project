@@ -19,6 +19,7 @@ void Game::initStates() {
 
 /// Constructor / Destructor
 Game::Game() {
+    this->dt = 0.f;
     this->initWindow();
     this->initStates();
 }
@@ -29,6 +30,19 @@ Game::~Game() {
         this->states.pop();
     }
 
+}
+
+Game &Game::operator=(const Game &other) {
+    dtClock = other.dtClock;
+    event = other.event;
+    dt = other.dt;
+    states = other.states;
+    return *this;
+}
+
+std::ostream &operator<<(std::ostream &os, const Game &game) {
+    os << "dt: " << game.dt;
+    return os;
 }
 
 /// Functions

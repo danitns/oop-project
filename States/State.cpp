@@ -36,3 +36,8 @@ const bool &State::getQuit() const {
     return this->quit;
 }
 
+std::ostream &operator<<(std::ostream &os, const State &state) {
+    os << "quit: " << state.quit << ", escapeCooldown:" << state.escapeCooldown << "\n";
+    return os;
+}
+

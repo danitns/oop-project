@@ -33,3 +33,4 @@ void GameState::render(sf::RenderTarget *target) {
     std::cout << target << "\n";
 }
 
+

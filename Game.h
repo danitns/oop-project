@@ -5,6 +5,7 @@
 #ifndef OOP_GAME_H
 #define OOP_GAME_H
 
+#include <ostream>
 #include "States/GameState.h"
 #include "States/MainMenuState.h"
 
@@ -13,7 +14,7 @@ class Game {
 private:
     /// Variables
     sf::RenderWindow window;
-    sf::Event event;
+    sf::Event event{};
 
     sf::Clock dtClock;
     float dt;
@@ -30,6 +31,10 @@ public:
     Game();
 
     virtual ~Game();
+
+    Game& operator=(const Game& other);
+
+    friend std::ostream& operator<<(std::ostream& os, const Game& game);
 
     /// Functions
     void updateDt();
