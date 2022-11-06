@@ -5,32 +5,30 @@
 #include "GameState.h"
 
 /// Constructor / Destructor
-GameState::GameState(sf::RenderWindow *window)
-        : State(window) {
+GameState::GameState(sf::RenderWindow *window, std::stack<State *> *states)
+        : State(window, states) {
 
 }
 
 GameState::~GameState() {
-
+    std::cout << "GameState Destructor\n";
 }
 
 /// Functions
 
 void GameState::endState() {
-    std::cout << "Ending GameState" << "\n";
+    std::cout << "Ending GameState\n";
 }
 
 
 void GameState::update(const float &dt) {
-    this->checkForQuit();
-    std::cout << dt << "\n";
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        std::cout << "a is pressed\n";
+    this->updateMousePositions();
+    this->player.update(dt);
 }
 
 void GameState::render(sf::RenderTarget *target) {
-    std::cout << target << "\n";
+
+    this->player.render(target);
 }
 
 

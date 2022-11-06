@@ -10,21 +10,23 @@
 class GameState :
         public State {
 private:
+    /// Variables
+    Entity player;
 
 public:
     /// Constructor / Destructor
-    explicit GameState(sf::RenderWindow *window);
+    GameState(sf::RenderWindow *window, std::stack<State *> *states);
 
-    virtual ~GameState();
+    ~GameState() override;
 
     //friend std::ostream& operator<<(std::ostream& os, const GameState& gameState);
 
     /// Functions
-    void endState();
+    void endState() override;
 
-    void update(const float &dt);
+    void update(const float &dt) override;
 
-    void render(sf::RenderTarget *target = nullptr);
+    void render(sf::RenderTarget *target) override;
 
 
 };

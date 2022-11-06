@@ -32,9 +32,9 @@ public:
 
     virtual ~Game();
 
-    Game& operator=(const Game& other);
+    Game &operator=(const Game &other);
 
-    friend std::ostream& operator<<(std::ostream& os, const Game& game);
+    friend std::ostream &operator<<(std::ostream &os, const Game &game);
 
     /// Functions
     void updateDt();

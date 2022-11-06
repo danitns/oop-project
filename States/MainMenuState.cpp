@@ -4,36 +4,92 @@
 
 #include "MainMenuState.h"
 
-/// Constructor / Destructor
-MainMenuState::MainMenuState(sf::RenderWindow *window)
-        : State(window) {
-    this->background.setSize(this->getWindowSize());
-    this->background.setFillColor(sf::Color::Red);
+/// Init functions
 
+void MainMenuState::initFonts() {
+    if (!this->font.loadFromFile("Fonts/alagard.ttf")) {
+        std::cout << "ERROR::MainMenuState::initFonts";
+    }
+
+    std::cout << "initFonts" << "\n";
+}
+
+void MainMenuState::initButtons() {
+    this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
+                                             &this->font, "New Game",
+                                             sf::Color(0, 51, 102),
+                                             sf::Color(26, 140, 255),
+                                             sf::Color(128, 191, 255));
+
+    this->buttons["EXIT_STATE"] = new Button(100, 160, 150, 50,
+                                             &this->font, "Quit Game",
+                                             sf::Color(0, 51, 102),
+                                             sf::Color(26, 140, 255),
+                                             sf::Color(128, 191, 255));
+}
+
+/// Constructor / Destructor
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State *> *states)
+        : State(window, states) {
+    this->initFonts();
+    this->initButtons();
+
+    this->background.setSize(this->getWindowSize());
+    this->background.setFillColor(sf::Color(38, 38, 38, 255));
 }
 
 MainMenuState::~MainMenuState() {
-
+    for (auto &button: this->buttons) {
+        delete button.second;
+    }
+    std::cout << "MainMenuState Destructor\n";
 }
 
 /// Functions
 
 void MainMenuState::endState() {
-    std::cout << "Ending MainMenuState" << "\n";
+    std::cout << "Ending MainMenuState\n";
 }
 
+void MainMenuState::updateButtons() {
+    for (auto &button: this->buttons) {
+        button.second->update(static_cast<sf::Vector2f>(this->getMousePosWindow()));
+    }
+
+    if (this->buttons["GAME_STATE"]->isPressed()) {
+        this->getStates()->push(new GameState(this->getWindow(), this->getStates()));
+    }
+
+    if (this->buttons["EXIT_STATE"]->isPressed()) {
+        this->setQuit(true);
+    }
+
+}
 
 void MainMenuState::update(const float &dt) {
-    this->checkForQuit();
-    std::cout << dt << "\n";
+    if (dt == 0) {
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        std::cout << "a is pressed\n";
+    this->updateMousePositions();
+    this->updateButtons();
 }
+
+void MainMenuState::renderButtons(sf::RenderTarget *target) {
+    for (auto &button: this->buttons) {
+        button.second->render(target);
+    }
+}
+
 
 void MainMenuState::render(sf::RenderTarget *target) {
-    std::cout << target << "\n";
 
     target->draw(this->background);
+    this->renderButtons(target);
 }
+
+
+
+
+
+
 

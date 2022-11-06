@@ -5,38 +5,48 @@
 #ifndef OOP_STATE_H
 #define OOP_STATE_H
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <stack>
+#include "../Entities/Entity.h"
+#include "../Button.h"
 
 class State {
 private:
     /// Variables
+    std::stack<State *> *states;
     sf::RenderWindow *window;
     bool quit;
     int escapeCooldown;
 
+    sf::Vector2i mousePosScreen;
+    sf::Vector2i mousePosWindow;
+
 public:
     /// Constructors / Destructors
-    State(sf::RenderWindow *window);
+    explicit State(sf::RenderWindow *window, std::stack<State *> *states);
 
     virtual ~State();
 
-    friend std::ostream& operator<<(std::ostream& os, const State& state);
+    friend std::ostream &operator<<(std::ostream &os, const State &state);
 
     /// Functions
-    sf::Vector2f getWindowSize() const;
+    [[nodiscard]] sf::Vector2f getWindowSize() const;
 
-    const bool &getQuit() const;
+    [[nodiscard]] const bool &getQuit() const;
 
-    virtual void checkForQuit();
+    [[nodiscard]] const sf::Vector2i &getMousePosWindow() const;
+
+    [[nodiscard]] std::stack<State *> *getStates() const;
+
+    [[nodiscard]] sf::RenderWindow *getWindow() const;
+
+    void setQuit(bool quit);
 
     virtual void endState() = 0;
 
+    virtual void updateMousePositions();
+
     virtual void update(const float &dt) = 0;
 
-    virtual void render(sf::RenderTarget *target = nullptr) = 0;
+    virtual void render(sf::RenderTarget *target) = 0;
 
 };
 

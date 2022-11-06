@@ -8,22 +8,35 @@
 #include "GameState.h"
 
 class MainMenuState :
-        public State{
+        public State {
 private:
+    /// Variables
     sf::RectangleShape background;
+    sf::Font font;
+
+    std::map<std::string, Button *> buttons;
+
+    /// Init functions
+    void initFonts();
+
+    void initButtons();
 
 public:
     /// Constructor / Destructor
-    explicit MainMenuState(sf::RenderWindow *window);
+    MainMenuState(sf::RenderWindow *window, std::stack<State *> *states);
 
-    virtual ~MainMenuState();
+    ~MainMenuState() override;
 
     /// Functions
-    void endState();
+    void endState() override;
 
-    void update(const float &dt);
+    void updateButtons();
 
-    void render(sf::RenderTarget *target = nullptr);
+    void update(const float &dt) override;
+
+    void renderButtons(sf::RenderTarget *target);
+
+    void render(sf::RenderTarget *target) override;
 
 };
 
