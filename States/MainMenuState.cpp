@@ -39,7 +39,7 @@ MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State *> *stat
 }
 
 MainMenuState::~MainMenuState() {
-    for (auto &button: this->buttons) {
+    for (auto const &button: this->buttons) {
         delete button.second;
     }
     std::cout << "MainMenuState Destructor\n";
@@ -52,7 +52,7 @@ void MainMenuState::endState() {
 }
 
 void MainMenuState::updateButtons() {
-    for (auto &button: this->buttons) {
+    for (auto const &button: this->buttons) {
         button.second->update(static_cast<sf::Vector2f>(this->getMousePosWindow()));
     }
 
