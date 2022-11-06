@@ -38,7 +38,7 @@ public:
 
     [[nodiscard]] sf::RenderWindow *getWindow() const;
 
-    void setQuit(bool quit);
+    void setQuit(bool quit_);
 
     virtual void endState() = 0;
 

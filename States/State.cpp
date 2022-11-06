@@ -30,8 +30,8 @@ sf::Vector2f State::getWindowSize() const {
     return sf::Vector2f(this->window->getSize());
 }
 
-void State::setQuit(bool quit) {
-    this->quit = quit;
+void State::setQuit(bool quit_) {
+    this->quit = quit_;
 }
 
 const bool &State::getQuit() const {

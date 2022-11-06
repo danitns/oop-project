@@ -75,7 +75,7 @@ void MainMenuState::update(const float &dt) {
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget *target) {
-    for (auto &button: this->buttons) {
+    for (auto const &button: this->buttons) {
         button.second->render(target);
     }
 }
