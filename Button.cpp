@@ -5,12 +5,13 @@
 #include "Button.h"
 
 /// Constructor/Destructor
+/*
 Button::Button() {
     this->buttonState = IDLE;
     this->font = nullptr;
-}
+}*/
 
-Button::Button(float x, float y, float width, float height, sf::Font *font, const std::string &text,
+Button::Button(float x, float y, float width, float height, const sf::Font& font, const std::string &text,
                const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor)
         : font(font), idleColor(idleColor), hoverColor(hoverColor), pressedColor(pressedColor) {
     this->buttonState = IDLE;
@@ -18,7 +19,7 @@ Button::Button(float x, float y, float width, float height, sf::Font *font, cons
     this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setFillColor(idleColor);
-    this->text.setFont(*this->font);
+    this->text.setFont(this->font);
     this->text.setString(text);
     this->text.setFillColor(sf::Color::White);
     this->text.setCharacterSize(12);
@@ -40,9 +41,7 @@ Button::~Button() {
 
 /// Getters
 bool Button::isPressed() const {
-    if (this->buttonState == PRESSED)
-        return true;
-    return false;
+    return this->buttonState == PRESSED;
 }
 
 /// Functions

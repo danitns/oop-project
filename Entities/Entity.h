@@ -24,7 +24,7 @@ public:
     virtual ~Entity();
 
     /// Functions
-    virtual void move(const float &dt, float x, float y);
+    virtual void move(float dt, float x, float y);
 
     virtual void update(const float &dt);
 

@@ -16,20 +16,20 @@ void MainMenuState::initFonts() {
 
 void MainMenuState::initButtons() {
     this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
-                                             &this->font, "New Game",
+                                             this->font, "New Game",
                                              sf::Color(0, 51, 102),
                                              sf::Color(26, 140, 255),
                                              sf::Color(128, 191, 255));
 
     this->buttons["EXIT_STATE"] = new Button(100, 160, 150, 50,
-                                             &this->font, "Quit Game",
+                                             this->font, "Quit Game",
                                              sf::Color(0, 51, 102),
                                              sf::Color(26, 140, 255),
                                              sf::Color(128, 191, 255));
 }
 
 /// Constructor / Destructor
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State *> *states)
+MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<State *> &states)
         : State(window, states) {
     this->initFonts();
     this->initButtons();
@@ -57,7 +57,7 @@ void MainMenuState::updateButtons() {
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()) {
-        this->getStates()->push(new GameState(this->getWindow(), this->getStates()));
+        this->getStates().push(new GameState(this->getWindow(), this->getStates()));
     }
 
     if (this->buttons["EXIT_STATE"]->isPressed()) {
@@ -86,6 +86,7 @@ void MainMenuState::render(sf::RenderTarget *target) {
     target->draw(this->background);
     this->renderButtons(target);
 }
+
 
 
 

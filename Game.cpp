@@ -13,7 +13,7 @@ void Game::initWindow() {
 }
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(&this->window, &this->states));
+    this->states.push(new MainMenuState(this->window, this->states));
 }
 
 
@@ -24,25 +24,41 @@ Game::Game() {
     this->initStates();
 }
 
-Game::~Game() {
-    while (!this->states.empty()) {
-        delete this->states.top();
-        this->states.pop();
+Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
+    /// ???? Deep copy pt states
+    this->states = *new std::stack<State *>;
+    std::stack<State *> copy(other.states);
+    std::stack<State *> reverse_order;
+    while(!copy.empty()) {
+        reverse_order.push(copy.top());
+        copy.pop();
     }
-
+    while(!reverse_order.empty()) {
+        states.push(reverse_order.top());
+        reverse_order.pop();
+    }
 }
 
 Game &Game::operator=(const Game &other) {
     dtClock = other.dtClock;
     event = other.event;
     dt = other.dt;
-    states = other.states;
+    Game copy(other);
+    std::swap(this->states, copy.states);
     return *this;
 }
 
 std::ostream &operator<<(std::ostream &os, const Game &game) {
     os << "dt: " << game.dt;
     return os;
+}
+
+Game::~Game() {
+    while (!this->states.empty()) {
+        delete this->states.top();
+        this->states.pop();
+    }
+
 }
 
 /// Functions
@@ -101,6 +117,11 @@ void Game::run() {
         this->render();
     }
 }
+
+
+
+
+
 
 
 

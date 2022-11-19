@@ -11,8 +11,8 @@
 class State {
 private:
     /// Variables
-    std::stack<State *> *states;
-    sf::RenderWindow *window;
+    std::stack<State *> &states;
+    sf::RenderWindow &window;
     bool quit;
     int escapeCooldown;
 
@@ -21,7 +21,7 @@ private:
 
 public:
     /// Constructors / Destructors
-    explicit State(sf::RenderWindow *window, std::stack<State *> *states);
+    State(sf::RenderWindow &window, std::stack<State *> &states);
 
     virtual ~State();
 
@@ -34,9 +34,9 @@ public:
 
     [[nodiscard]] const sf::Vector2i &getMousePosWindow() const;
 
-    [[nodiscard]] std::stack<State *> *getStates() const;
+    [[nodiscard]] std::stack<State *> &getStates() const;
 
-    [[nodiscard]] sf::RenderWindow *getWindow() const;
+    [[nodiscard]] sf::RenderWindow &getWindow() const;
 
     void setQuit(bool quit_);
 

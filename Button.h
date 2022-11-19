@@ -20,7 +20,7 @@ private:
     short unsigned buttonState;
 
     sf::RectangleShape shape;
-    sf::Font *font;
+    sf::Font font;
     sf::Text text;
 
     sf::Color idleColor;
@@ -29,9 +29,9 @@ private:
 
 public:
     /// Constructor / Destructor
-    Button();
+    //Button();
 
-    Button(float x, float y, float width, float height, sf::Font *font, const std::string &text,
+    Button(float x, float y, float width, float height, const sf::Font &font, const std::string &text,
            const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor);
 
     virtual ~Button();

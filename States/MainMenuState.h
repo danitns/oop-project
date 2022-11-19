@@ -23,7 +23,7 @@ private:
 
 public:
     /// Constructor / Destructor
-    MainMenuState(sf::RenderWindow *window, std::stack<State *> *states);
+    MainMenuState(sf::RenderWindow &window, std::stack<State *> &states);
 
     ~MainMenuState() override;
 

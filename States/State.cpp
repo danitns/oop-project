@@ -6,11 +6,9 @@
 
 /// Constructor / Destructor
 
-State::State(sf::RenderWindow *window, std::stack<State *> *states) {
+State::State(sf::RenderWindow &window, std::stack<State *> &states): states{states}, window{window} {
     this->mousePosScreen = sf::Vector2i(0, 0);
     this->mousePosWindow = sf::Vector2i(0, 0);
-    this->window = window;
-    this->states = states;
     this->quit = false;
     this->escapeCooldown = 0;
 }
@@ -27,7 +25,7 @@ std::ostream &operator<<(std::ostream &os, const State &state) {
 /// Functions
 
 sf::Vector2f State::getWindowSize() const {
-    return sf::Vector2f(this->window->getSize());
+    return sf::Vector2f(this->window.getSize());
 }
 
 void State::setQuit(bool quit_) {
@@ -42,18 +40,21 @@ const sf::Vector2i &State::getMousePosWindow() const {
     return mousePosWindow;
 }
 
-std::stack<State *> *State::getStates() const {
+std::stack<State *> &State::getStates() const {
     return states;
 }
 
-sf::RenderWindow *State::getWindow() const {
+sf::RenderWindow &State::getWindow() const {
     return window;
 }
 
 void State::updateMousePositions() {
     this->mousePosScreen = sf::Mouse::getPosition();
-    this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+    this->mousePosWindow = sf::Mouse::getPosition(this->window);
 }
+
+
+
 
 
 

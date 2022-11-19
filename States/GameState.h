@@ -15,7 +15,7 @@ private:
 
 public:
     /// Constructor / Destructor
-    GameState(sf::RenderWindow *window, std::stack<State *> *states);
+    GameState(sf::RenderWindow &window, std::stack<State *> &states);
 
     ~GameState() override;
 

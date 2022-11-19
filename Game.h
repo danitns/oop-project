@@ -30,11 +30,13 @@ public:
     /// Constructors / Destructors:
     Game();
 
-    virtual ~Game();
+    Game(const Game& other);
 
     Game &operator=(const Game &other);
 
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
+
+    virtual ~Game();
 
     /// Functions
     void updateDt();
