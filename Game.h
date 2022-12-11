@@ -9,7 +9,6 @@
 #include "States/GameState.h"
 #include "States/MainMenuState.h"
 
-
 class Game {
 private:
     /// Variables
@@ -19,7 +18,7 @@ private:
     sf::Clock dtClock;
     float dt;
 
-    std::stack<State *> states;
+    std::stack<std::shared_ptr<State>> states;
 
     /// Init functions
     void initWindow();
@@ -30,9 +29,9 @@ public:
     /// Constructors / Destructors:
     Game();
 
-    Game(const Game& other);
-
-    Game &operator=(const Game &other);
+//    Game(const Game& other);
+//
+//    Game &operator=(Game other);
 
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
 

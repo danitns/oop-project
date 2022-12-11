@@ -14,7 +14,7 @@ private:
     sf::RectangleShape background;
     sf::Font font;
 
-    std::map<std::string, Button *> buttons;
+    std::map<std::string, std::shared_ptr<Button>> buttons;
 
     /// Init functions
     void initFonts();
@@ -23,20 +23,20 @@ private:
 
 public:
     /// Constructor / Destructor
-    MainMenuState(sf::RenderWindow &window, std::stack<State *> &states);
+    MainMenuState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states);
 
     ~MainMenuState() override;
 
-    /// Functions
-    void endState() override;
+    std::shared_ptr<State> clone() const override;
 
+    /// Functions
     void updateButtons();
 
-    void update(const float &dt) override;
+    void update(float dt) override;
 
-    void renderButtons(sf::RenderTarget *target);
+    void renderButtons(sf::RenderTarget &target);
 
-    void render(sf::RenderTarget *target) override;
+    void render(sf::RenderTarget &target) override;
 
 };
 

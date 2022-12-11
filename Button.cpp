@@ -5,12 +5,6 @@
 #include "Button.h"
 
 /// Constructor/Destructor
-/*
-Button::Button() {
-    this->buttonState = IDLE;
-    this->font = nullptr;
-}*/
-
 Button::Button(float x, float y, float width, float height, const sf::Font& font, const std::string &text,
                const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor)
         : font(font), idleColor(idleColor), hoverColor(hoverColor), pressedColor(pressedColor) {
@@ -32,7 +26,7 @@ Button::Button(float x, float y, float width, float height, const sf::Font& font
 
     this->shape.setFillColor(this->idleColor);
 
-    std::cout << "Constructor button" << "\n";
+    std::cout << "Button Constructor" << "\n";
 }
 
 Button::~Button() {
@@ -63,9 +57,9 @@ void Button::update(sf::Vector2f mousePos) {
     }
 }
 
-void Button::render(sf::RenderTarget *target) {
-    target->draw(this->shape);
-    target->draw(this->text);
+void Button::render(sf::RenderTarget &target) {
+    target.draw(this->shape);
+    target.draw(this->text);
 }
 
 

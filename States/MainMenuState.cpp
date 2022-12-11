@@ -15,13 +15,13 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initButtons() {
-    this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
+    this->buttons["GAME_STATE"] = std::make_shared<Button>(100, 100, 150, 50,
                                              this->font, "New Game",
                                              sf::Color(0, 51, 102),
                                              sf::Color(26, 140, 255),
                                              sf::Color(128, 191, 255));
 
-    this->buttons["EXIT_STATE"] = new Button(100, 160, 150, 50,
+    this->buttons["EXIT_STATE"] = std::make_shared<Button>(100, 160, 150, 50,
                                              this->font, "Quit Game",
                                              sf::Color(0, 51, 102),
                                              sf::Color(26, 140, 255),
@@ -29,8 +29,10 @@ void MainMenuState::initButtons() {
 }
 
 /// Constructor / Destructor
-MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<State *> &states)
+MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states)
         : State(window, states) {
+    std::cout << "MainMenuState Constructor\n";
+
     this->initFonts();
     this->initButtons();
 
@@ -39,17 +41,17 @@ MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<State *> &stat
 }
 
 MainMenuState::~MainMenuState() {
-    for (auto const &button: this->buttons) {
-        delete button.second;
-    }
+//    for (auto const &button: this->buttons) {
+//        delete button.second;
+//    }
     std::cout << "MainMenuState Destructor\n";
 }
 
-/// Functions
-
-void MainMenuState::endState() {
-    std::cout << "Ending MainMenuState\n";
+std::shared_ptr<State> MainMenuState::clone() const {
+    return std::make_shared<MainMenuState>(*this);
 }
+
+/// Functions
 
 void MainMenuState::updateButtons() {
     for (auto const &button: this->buttons) {
@@ -57,7 +59,7 @@ void MainMenuState::updateButtons() {
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()) {
-        this->getStates().push(new GameState(this->getWindow(), this->getStates()));
+        this->getStates().push(std::make_shared<GameState>(this->getWindow(), this->getStates()));
     }
 
     if (this->buttons["EXIT_STATE"]->isPressed()) {
@@ -66,7 +68,7 @@ void MainMenuState::updateButtons() {
 
 }
 
-void MainMenuState::update(const float &dt) {
+void MainMenuState::update(const float dt) {
     if (dt == 0) {
     }
 
@@ -74,18 +76,21 @@ void MainMenuState::update(const float &dt) {
     this->updateButtons();
 }
 
-void MainMenuState::renderButtons(sf::RenderTarget *target) {
+void MainMenuState::renderButtons(sf::RenderTarget &target) {
     for (auto const &button: this->buttons) {
         button.second->render(target);
     }
 }
 
 
-void MainMenuState::render(sf::RenderTarget *target) {
+void MainMenuState::render(sf::RenderTarget &target) {
 
-    target->draw(this->background);
+    target.draw(this->background);
     this->renderButtons(target);
 }
+
+
+
 
 
 

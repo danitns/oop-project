@@ -11,21 +11,24 @@
 class State {
 private:
     /// Variables
-    std::stack<State *> &states;
+    std::stack<std::shared_ptr<State>> &states;
     sf::RenderWindow &window;
     bool quit;
     int escapeCooldown;
 
-    sf::Vector2i mousePosScreen;
+    //sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;
 
 public:
     /// Constructors / Destructors
-    State(sf::RenderWindow &window, std::stack<State *> &states);
+    State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states);
 
     virtual ~State();
 
     friend std::ostream &operator<<(std::ostream &os, const State &state);
+
+    [[maybe_unused]] [[nodiscard]] virtual std::shared_ptr<State> clone() const = 0;
+
 
     /// Functions
     [[nodiscard]] sf::Vector2f getWindowSize() const;
@@ -34,19 +37,17 @@ public:
 
     [[nodiscard]] const sf::Vector2i &getMousePosWindow() const;
 
-    [[nodiscard]] std::stack<State *> &getStates() const;
+    [[nodiscard]] std::stack<std::shared_ptr<State>> &getStates() const;
 
     [[nodiscard]] sf::RenderWindow &getWindow() const;
 
     void setQuit(bool quit_);
 
-    virtual void endState() = 0;
-
     virtual void updateMousePositions();
 
-    virtual void update(const float &dt) = 0;
+    virtual void update(float dt) = 0;
 
-    virtual void render(sf::RenderTarget *target) = 0;
+    virtual void render(sf::RenderTarget &target) = 0;
 
 };
 

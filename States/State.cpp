@@ -6,8 +6,10 @@
 
 /// Constructor / Destructor
 
-State::State(sf::RenderWindow &window, std::stack<State *> &states): states{states}, window{window} {
-    this->mousePosScreen = sf::Vector2i(0, 0);
+State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states): states{states}, window{window} {
+    std::cout << "State Constructor\n";
+
+    //this->mousePosScreen = sf::Vector2i(0, 0);
     this->mousePosWindow = sf::Vector2i(0, 0);
     this->quit = false;
     this->escapeCooldown = 0;
@@ -40,7 +42,7 @@ const sf::Vector2i &State::getMousePosWindow() const {
     return mousePosWindow;
 }
 
-std::stack<State *> &State::getStates() const {
+std::stack<std::shared_ptr<State>> &State::getStates() const {
     return states;
 }
 
@@ -49,7 +51,7 @@ sf::RenderWindow &State::getWindow() const {
 }
 
 void State::updateMousePositions() {
-    this->mousePosScreen = sf::Mouse::getPosition();
+    //this->mousePosScreen = sf::Mouse::getPosition();
     this->mousePosWindow = sf::Mouse::getPosition(this->window);
 }
 

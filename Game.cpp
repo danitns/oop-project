@@ -13,40 +13,41 @@ void Game::initWindow() {
 }
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(this->window, this->states));
+    this->states.push(std::make_shared<MainMenuState>(this->window, this->states));
 }
 
 
 /// Constructor / Destructor
 Game::Game() {
+    std::cout << "Game Constructor\n";
+
     this->dt = 0.f;
     this->initWindow();
     this->initStates();
 }
 
-Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
-    /// ???? Deep copy pt states
-    this->states = *new std::stack<State *>;
-    std::stack<State *> copy(other.states);
-    std::stack<State *> reverse_order;
-    while(!copy.empty()) {
-        reverse_order.push(copy.top());
-        copy.pop();
-    }
-    while(!reverse_order.empty()) {
-        states.push(reverse_order.top());
-        reverse_order.pop();
-    }
-}
+//Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
+//    /// Deep copy pt states
+//    this->states = *new std::stack<std::shared_ptr<State>>;
+//    std::stack<std::shared_ptr<State>> copy(other.states);
+//    std::stack<std::shared_ptr<State>> reverse_order;
+//    while(!copy.empty()) {
+//        reverse_order.push(copy.top());
+//        copy.pop();
+//    }
+//    while(!reverse_order.empty()) {
+//        states.push(reverse_order.top());
+//        reverse_order.pop();
+//    }
+//}
 
-Game &Game::operator=(const Game &other) {
-    dtClock = other.dtClock;
-    event = other.event;
-    dt = other.dt;
-    Game copy(other);
-    std::swap(this->states, copy.states);
-    return *this;
-}
+//Game &Game::operator=(Game other) {
+//    std::swap(this->states, other.states);
+//    std::swap(this->dtClock, other.dtClock);
+//    std::swap(this->event, other.event);
+//    std::swap(this->dt, other.dt);
+//    return *this;
+//}
 
 std::ostream &operator<<(std::ostream &os, const Game &game) {
     os << "dt: " << game.dt;
@@ -55,7 +56,6 @@ std::ostream &operator<<(std::ostream &os, const Game &game) {
 
 Game::~Game() {
     while (!this->states.empty()) {
-        delete this->states.top();
         this->states.pop();
     }
 
@@ -66,8 +66,6 @@ Game::~Game() {
 void Game::updateDt() {
     /// dt = the time it takes to render one frame
     this->dt = this->dtClock.restart().asSeconds();
-
-    //std::cout << dt << "\n";
 }
 
 
@@ -88,8 +86,7 @@ void Game::update() {
         this->states.top()->update(this->dt);
 
         if (this->states.top()->getQuit()) {
-            this->states.top()->endState();
-            delete this->states.top();
+            //delete this->states.top();
             this->states.pop();
         }
     }
@@ -105,8 +102,7 @@ void Game::render() {
     window.clear();
 
     if (!this->states.empty())
-        this->states.top()->render(&this->window);
-
+        this->states.top()->render(this->window);
     window.display();
 }
 

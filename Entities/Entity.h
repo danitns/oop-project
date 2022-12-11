@@ -5,17 +5,21 @@
 #ifndef OOP_ENTITY_H
 #define OOP_ENTITY_H
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <stack>
-
+#include "../Map/Cell.h"
 
 class Entity {
 private:
     /// Variables
-    sf::RectangleShape shape;
-    float movementSpeed;
+    sf::Sprite sprite;
+    sf::FloatRect hitbox;
+
+    sf::Vector2f velocity;
+    float maxVelocity;
+    float acceleration;
+    float deceleration;
+    float gravityForce;
+    float jumpForce;
+
 
 public:
     /// Constructor / Destructor
@@ -24,11 +28,21 @@ public:
     virtual ~Entity();
 
     /// Functions
-    virtual void move(float dt, float x, float y);
+    void setTexture(sf::Texture& texture);
+    virtual void setPosition(float x, float y);
 
-    virtual void update(const float &dt);
+    sf::Vector2f getPosition();
+    const sf::Vector2f &getVelocity() const;
+    sf::FloatRect getGlobalBounds() const;
 
-    virtual void render(sf::RenderTarget *target);
+    virtual void updateVelocity(float dir_x, float dir_y, float dt);
+    void move();
+    void windowCollision(const sf::Image& mapSketch);
+    void cellCollision(sf::FloatRect wall);
+    bool onGround() const;
+
+    virtual void update(float dt);
+    virtual void render(sf::RenderTarget &target);
 };
 
 

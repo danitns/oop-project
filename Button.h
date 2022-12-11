@@ -29,8 +29,6 @@ private:
 
 public:
     /// Constructor / Destructor
-    //Button();
-
     Button(float x, float y, float width, float height, const sf::Font &font, const std::string &text,
            const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor);
 
@@ -42,7 +40,7 @@ public:
     /// Functions
     void update(sf::Vector2f mousePos);
 
-    void render(sf::RenderTarget *target);
+    void render(sf::RenderTarget &target);
 };
 
 
