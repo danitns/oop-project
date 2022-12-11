@@ -26,28 +26,28 @@ Game::Game() {
     this->initStates();
 }
 
-//Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
-//    /// Deep copy pt states
-//    this->states = *new std::stack<std::shared_ptr<State>>;
-//    std::stack<std::shared_ptr<State>> copy(other.states);
-//    std::stack<std::shared_ptr<State>> reverse_order;
-//    while(!copy.empty()) {
-//        reverse_order.push(copy.top());
-//        copy.pop();
-//    }
-//    while(!reverse_order.empty()) {
-//        states.push(reverse_order.top());
-//        reverse_order.pop();
-//    }
-//}
+[[maybe_unused]] Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
+    /// Deep copy pt states
+    this->states = *new std::stack<std::shared_ptr<State>>;
+    std::stack<std::shared_ptr<State>> copy(other.states);
+    std::stack<std::shared_ptr<State>> reverse_order;
+    while(!copy.empty()) {
+        reverse_order.push(copy.top()->clone());
+        copy.pop();
+    }
+    while(!reverse_order.empty()) {
+        states.push(reverse_order.top()->clone());
+        reverse_order.pop();
+    }
+}
 
-//Game &Game::operator=(Game other) {
-//    std::swap(this->states, other.states);
-//    std::swap(this->dtClock, other.dtClock);
-//    std::swap(this->event, other.event);
-//    std::swap(this->dt, other.dt);
-//    return *this;
-//}
+Game &Game::operator=(Game other) {
+    std::swap(this->states, other.states);
+    std::swap(this->dtClock, other.dtClock);
+    std::swap(this->event, other.event);
+    std::swap(this->dt, other.dt);
+    return *this;
+}
 
 std::ostream &operator<<(std::ostream &os, const Game &game) {
     os << "dt: " << game.dt;

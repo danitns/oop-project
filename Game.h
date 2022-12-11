@@ -29,9 +29,9 @@ public:
     /// Constructors / Destructors:
     Game();
 
-//    Game(const Game& other);
-//
-//    Game &operator=(Game other);
+    [[maybe_unused]] Game(const Game& other);
+
+    Game &operator=(Game other);
 
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
 

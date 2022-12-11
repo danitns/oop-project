@@ -27,7 +27,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const State &state);
 
-    [[maybe_unused]] [[nodiscard]] virtual std::shared_ptr<State> clone() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<State> clone() const = 0;
 
 
     /// Functions

@@ -101,7 +101,7 @@ void Entity::cellCollision(sf::FloatRect wall) {
                 && sprite.getGlobalBounds().left < wall.left + wall.width
                 && sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > wall.left)
         {
-            velocity.y = 0.1;
+            velocity.y = 1.f;
             sprite.setPosition(sprite.getGlobalBounds().left, wall.top + wall.height);
         }
         /// Bottom collision
