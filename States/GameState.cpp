@@ -9,24 +9,23 @@ GameState::GameState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>
         : State(window, states) {
     std::cout << "GameState Constructor\n";
 
-    this->view = sf::View(sf::FloatRect
-            (0.f, 0.f,
-             static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT)));
+    this->view = this->getWindow().getDefaultView();
 
     this->background.setSize(sf::Vector2f (3 * this->getWindowSize().x, this->getWindowSize().y));
     this->background.setFillColor(sf::Color(49,118, 255));
     this->background.setPosition(-200.f, 0.f);
+    try {
+        this->mapSketch.loadFromFile("Sprites/map1.png");
 
-    this->mapSketch.loadFromFile("Sprites/map1.png");
-
-    this->map = std::make_shared<Map>(mapSketch);
+        this->map = std::make_shared<Map>(mapSketch);
+    } catch(const gameError& error) {
+        std::cout << error.what() << '\n';
+    }
 }
 
 GameState::~GameState() {
     /// Reset view
     this->getWindow().setView(this->getWindow().getDefaultView());
-
-    std::cout << "GameState Destructor\n";
 }
 
 std::shared_ptr<State> GameState::clone() const {
@@ -35,15 +34,7 @@ std::shared_ptr<State> GameState::clone() const {
 
 /// Functions
 void GameState::updatePlayerMovement(float dt) {
-    /// Player input
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        this->player.updateVelocity(-1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        this->player.updateVelocity(1.f, 0.f, dt);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && this->player.onGround())
-        this->player.updateVelocity(0.f, -1.f, dt);
-
-    /// Deceleration
+    /// Keyboard input & deceleration
     this->player.update(dt);
 
     /// Window collision

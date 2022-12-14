@@ -36,7 +36,7 @@ Game::Game() {
         copy.pop();
     }
     while(!reverse_order.empty()) {
-        states.push(reverse_order.top()->clone());
+        states.push(reverse_order.top());
         reverse_order.pop();
     }
 }
@@ -86,7 +86,6 @@ void Game::update() {
         this->states.top()->update(this->dt);
 
         if (this->states.top()->getQuit()) {
-            //delete this->states.top();
             this->states.pop();
         }
     }

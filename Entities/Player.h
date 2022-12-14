@@ -10,10 +10,17 @@
 
 class Player: public Entity {
 private:
+    /// Variables
     sf::Texture texture;
+
+    /// Functions
+    void input(float dt) override;
 public:
     /// Constructor
     Player();
+
+    /// Functions
+
 
 };
 

@@ -40,13 +40,6 @@ MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<std::shared_pt
     this->background.setFillColor(sf::Color(38, 38, 38, 255));
 }
 
-MainMenuState::~MainMenuState() {
-//    for (auto const &button: this->buttons) {
-//        delete button.second;
-//    }
-    std::cout << "MainMenuState Destructor\n";
-}
-
 std::shared_ptr<State> MainMenuState::clone() const {
     return std::make_shared<MainMenuState>(*this);
 }
@@ -88,6 +81,7 @@ void MainMenuState::render(sf::RenderTarget &target) {
     target.draw(this->background);
     this->renderButtons(target);
 }
+
 
 
 

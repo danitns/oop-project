@@ -14,6 +14,7 @@ Entity::Entity() {
     this->deceleration = 16.f;
     this->jumpForce = 1500.f;
     this->gravityForce = 100.f;
+    this->animation = std::make_shared<AnimationComponent>(this->sprite);
 }
 
 Entity::~Entity() {
@@ -58,7 +59,6 @@ void Entity::windowCollision(const sf::Image& mapSketch) {
     /// Right collision
     if(this->hitbox.left >= static_cast<float>(mapSketch.getSize().x * CELL_SIZE) - this->hitbox.getSize().x)
     {
-        std::cout << mapSketch.getSize().x * CELL_SIZE;
         this->velocity.x = 0.f;
         this->sprite.setPosition(static_cast<float>(mapSketch.getSize().x * CELL_SIZE) - this->hitbox.getSize().x, this->sprite.getPosition().y);
     }
@@ -122,6 +122,8 @@ bool Entity::onGround() const {
 }
 
 void Entity::update(const float dt) {
+    this->input(dt);
+    this->animation->update();
     if(this->velocity.x > 0.f)
     {
         //Max velocity check
@@ -143,10 +145,25 @@ void Entity::update(const float dt) {
         if(this->velocity.x > 0.f)
             this->velocity.x = 0.f;
     }
+
     this->velocity.y += this->gravityForce * dt;
 }
 
 void Entity::render(sf::RenderTarget &target) {
+    if(this->velocity.x == 0.f)
+        this->animation->idle();
+    else {
+        this->animation->walk();
+
+        if(this->velocity.x > 0.f)
+            this->animation->setFlipped(false);
+        else
+            this->animation->setFlipped(true);
+
+    }
+    if(!this->onGround())
+        this->animation->jump();
+
     target.draw(this->sprite);
 }
 

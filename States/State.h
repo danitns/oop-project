@@ -5,6 +5,7 @@
 #ifndef OOP_STATE_H
 #define OOP_STATE_H
 
+#include "../Exceptions.h"
 #include "../Entities/Entity.h"
 #include "../Button.h"
 
@@ -19,11 +20,14 @@ private:
     //sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;
 
+protected:
+    State(const State& other) = default;
+
 public:
     /// Constructors / Destructors
     State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states);
 
-    virtual ~State();
+    virtual ~State() = default;
 
     friend std::ostream &operator<<(std::ostream &os, const State &state);
 

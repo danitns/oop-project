@@ -15,10 +15,6 @@ State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &state
     this->escapeCooldown = 0;
 }
 
-State::~State() {
-    std::cout << "State Destructor\n";
-}
-
 std::ostream &operator<<(std::ostream &os, const State &state) {
     os << "quit: " << state.quit << ", escapeCooldown:" << state.escapeCooldown << "\n";
     return os;

@@ -76,7 +76,7 @@ sfml_set_custom_stdlib(sfml-graphics)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h States/State.cpp States/State.h States/GameState.cpp States/GameState.h States/MainMenuState.cpp States/MainMenuState.h States/GameState.cpp States/GameState.h Entities/Entity.cpp Entities/Entity.h Button.cpp Button.h Entities/Player.cpp Entities/Player.h Map/Cell.cpp Map/Cell.h Map/Map.cpp Map/Map.h)
+add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h States/State.cpp States/State.h States/GameState.cpp States/GameState.h States/MainMenuState.cpp States/MainMenuState.h States/GameState.cpp States/GameState.h Entities/Entity.cpp Entities/Entity.h Button.cpp Button.h Entities/Player.cpp Entities/Player.h Map/Cell.cpp Map/Cell.h Map/Map.cpp Map/Map.h Exceptions.h Entities/AnimationComponent.cpp Entities/AnimationComponent.h)
 
 ###############################################################################
 

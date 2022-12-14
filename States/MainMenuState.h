@@ -25,7 +25,7 @@ public:
     /// Constructor / Destructor
     MainMenuState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states);
 
-    ~MainMenuState() override;
+    ~MainMenuState() override = default;
 
     std::shared_ptr<State> clone() const override;
 

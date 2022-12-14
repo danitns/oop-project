@@ -6,6 +6,7 @@
 #define OOP_ENTITY_H
 
 #include "../Map/Cell.h"
+#include "../Entities/AnimationComponent.h"
 
 class Entity {
 private:
@@ -20,6 +21,10 @@ private:
     float gravityForce;
     float jumpForce;
 
+    std::shared_ptr<AnimationComponent> animation;
+
+    ///Functions
+    virtual void input(float dt) = 0;
 
 public:
     /// Constructor / Destructor

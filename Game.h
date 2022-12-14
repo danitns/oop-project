@@ -6,7 +6,6 @@
 #define OOP_GAME_H
 
 #include <ostream>
-#include "States/GameState.h"
 #include "States/MainMenuState.h"
 
 class Game {

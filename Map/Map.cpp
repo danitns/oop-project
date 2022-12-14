@@ -3,9 +3,13 @@
 //
 
 #include "Map.h"
+#include "../Exceptions.h"
 
 /// Constructor
 Map::Map(sf::Image& mapSketch) {
+    if(mapSketch.getSize().y != SCREEN_HEIGHT / CELL_SIZE && mapSketch.getSize().x < SCREEN_WIDTH / CELL_SIZE)
+        throw mapSketchError();
+
     empty.loadFromFile("Sprites/empty.png");
     ground.loadFromFile("Sprites/ground.png");
     for(unsigned int i = 0; i < mapSketch.getSize().x; i++)
