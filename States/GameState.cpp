@@ -67,7 +67,7 @@ void GameState::updatePlayerMovement(float dt) {
 
 void GameState::update(const float dt) {
     if (!this->stopGame) {
-        this->view.move(this->player.getVelocity().x, 0.f);
+        this->view.setCenter(std::min<float>(std::max<float>(this->player.getPosition().x, 400.f), float(this->mapSketch.getSize().x) * CELL_SIZE - 400.f), 300.f);
         this->getWindow().setView(view);
 
 
