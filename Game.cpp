@@ -6,7 +6,7 @@
 
 /// Init functions
 void Game::initWindow() {
-    this->window.create(sf::VideoMode(800, 600), "C++ SFML Game");
+    this->window.create(sf::VideoMode(800, 600), "C++/SFML Mario");
     this->window.setVerticalSyncEnabled(true);
     this->window.setFramerateLimit(60);
     //this->window.setKeyRepeatEnabled(false);
@@ -41,11 +41,16 @@ Game::Game() {
     }
 }
 
+void Game::swap(Game &game1, Game &game2) {
+    using std::swap;
+    swap(game1.states, game2.states);
+    swap(game1.dtClock, game2.dtClock);
+    swap(game1.event, game2.event);
+    swap(game1.dt, game2.dt);
+}
+
 Game &Game::operator=(Game other) {
-    std::swap(this->states, other.states);
-    std::swap(this->dtClock, other.dtClock);
-    std::swap(this->event, other.event);
-    std::swap(this->dt, other.dt);
+    this->swap(*this, other);
     return *this;
 }
 
@@ -112,6 +117,8 @@ void Game::run() {
         this->render();
     }
 }
+
+
 
 
 

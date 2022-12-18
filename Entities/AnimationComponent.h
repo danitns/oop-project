@@ -10,22 +10,26 @@
 
 class AnimationComponent {
 private:
-    sf::Sprite& sprite;
+    sf::Sprite &sprite;
     int animationSpeed;
     int animationIterator;
     int currentFrame;
     bool flipped;
 
 public:
-    explicit AnimationComponent(sf::Sprite& sprite);
+    explicit AnimationComponent(sf::Sprite &sprite);
 
     void setFlipped(bool flipped_);
-    void idle();
-    void walk();
-    void jump();
-    void update();
 
-public:
+    void idle();
+
+    void walk();
+
+    void jump();
+
+    void die();
+
+    void update();
 };
 
 

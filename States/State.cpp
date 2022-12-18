@@ -5,9 +5,10 @@
 #include "State.h"
 
 /// Constructor / Destructor
-
-State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states): states{states}, window{window} {
+State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states) : states{states}, window{window} {
     std::cout << "State Constructor\n";
+
+    this->font.loadFromFile("Fonts/alagard.ttf");
 
     //this->mousePosScreen = sf::Vector2i(0, 0);
     this->mousePosWindow = sf::Vector2i(0, 0);
@@ -46,10 +47,17 @@ sf::RenderWindow &State::getWindow() const {
     return window;
 }
 
+const sf::Font &State::getFont() const {
+    return font;
+}
+
 void State::updateMousePositions() {
     //this->mousePosScreen = sf::Mouse::getPosition();
     this->mousePosWindow = sf::Mouse::getPosition(this->window);
 }
+
+
+
 
 
 

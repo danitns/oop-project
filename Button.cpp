@@ -5,23 +5,23 @@
 #include "Button.h"
 
 /// Constructor/Destructor
-Button::Button(float x, float y, float width, float height, const sf::Font& font, const std::string &text,
+Button::Button(float width, float height, float x, float y, const sf::Font &font, const std::string &text,
                const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor)
         : font(font), idleColor(idleColor), hoverColor(hoverColor), pressedColor(pressedColor) {
     this->buttonState = IDLE;
 
-    this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setOrigin(width / 2, height / 2);
+
+    this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setFillColor(idleColor);
     this->text.setFont(this->font);
     this->text.setString(text);
     this->text.setFillColor(sf::Color::White);
     this->text.setCharacterSize(12);
     this->text.setPosition(
-            this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f -
-            this->text.getGlobalBounds().width / 2.f,
-            this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f -
-            this->text.getGlobalBounds().height / 2.f
+            this->shape.getPosition().x - this->text.getGlobalBounds().width / 2,
+            this->shape.getPosition().y - this->text.getGlobalBounds().height / 2
     );
 
     this->shape.setFillColor(this->idleColor);

@@ -28,7 +28,9 @@ public:
     /// Constructors / Destructors:
     Game();
 
-    [[maybe_unused]] Game(const Game& other);
+    [[maybe_unused]] Game(const Game &other);
+
+    [[maybe_unused]] static void swap(Game &game1, Game &game2);
 
     Game &operator=(Game other);
 

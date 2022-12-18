@@ -6,24 +6,24 @@
 #include "../Exceptions.h"
 
 /// Constructor
-Map::Map(sf::Image& mapSketch) {
-    if(mapSketch.getSize().y != SCREEN_HEIGHT / CELL_SIZE && mapSketch.getSize().x < SCREEN_WIDTH / CELL_SIZE)
+Map::Map(sf::Image &mapSketch) {
+    if (mapSketch.getSize().y != SCREEN_HEIGHT / CELL_SIZE && mapSketch.getSize().x < SCREEN_WIDTH / CELL_SIZE)
         throw mapSketchError();
 
     empty.loadFromFile("Sprites/empty.png");
     ground.loadFromFile("Sprites/ground.png");
-    for(unsigned int i = 0; i < mapSketch.getSize().x; i++)
-    {
+    for (unsigned int i = 0; i < mapSketch.getSize().x; i++) {
         std::vector<Cell> temp;
-        for(unsigned int j = 0; j < mapSketch.getSize().y; j++)
-        {
-            if(mapSketch.getPixel(i, j) == sf::Color(255,255,255))
+        for (unsigned int j = 0; j < mapSketch.getSize().y; j++) {
+            if (mapSketch.getPixel(i, j) == sf::Color(255, 255, 255))
                 temp.emplace_back(empty, i * CELL_SIZE, j * CELL_SIZE, Cell::Empty);
-            else if(mapSketch.getPixel(i, j) == sf::Color(255,0,0))
+            else if (mapSketch.getPixel(i, j) == sf::Color(255, 0, 0))
                 temp.emplace_back(ground, i * CELL_SIZE, j * CELL_SIZE, Cell::Ground);
         }
         this->map.emplace_back(temp);
     }
+    if (Cell::getCellNum() != (mapSketch.getSize().x * mapSketch.getSize().y))
+        throw mapConversionError();
 
 }
 
@@ -33,7 +33,7 @@ const std::vector<std::vector<Cell>> &Map::getMap() const {
 }
 
 void Map::render(sf::RenderTarget &target) {
-    for(auto & i : this->map)
-        for(auto & j : i)
+    for (auto &i: this->map)
+        for (auto &j: i)
             j.render(target);
 }

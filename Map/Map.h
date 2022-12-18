@@ -4,6 +4,7 @@
 
 #ifndef OOP_MAP_H
 #define OOP_MAP_H
+
 #include "Cell.h"
 
 class Map {
@@ -15,11 +16,12 @@ private:
 
 public:
     /// Constructor
-    explicit Map(sf::Image& mapSketch);
+    explicit Map(sf::Image &mapSketch);
 
     /// Functions
     const std::vector<std::vector<Cell>> &getMap() const;
-    void render(sf::RenderTarget& target);
+
+    void render(sf::RenderTarget &target);
 };
 
 

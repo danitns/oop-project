@@ -29,7 +29,7 @@ private:
 
 public:
     /// Constructor / Destructor
-    Button(float x, float y, float width, float height, const sf::Font &font, const std::string &text,
+    Button(float width, float height, float x, float y, const sf::Font &font, const std::string &text,
            const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor);
 
     virtual ~Button();

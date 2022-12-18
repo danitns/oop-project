@@ -17,9 +17,16 @@ private:
 
     sf::View view;
 
-    sf::RectangleShape background;
+    int viewChange = 0;
+    bool stopGame = false;
+
+    sf::Text gameOverText;
+
+    sf::Sprite background;
+    sf::Texture backgroundTexture;
     sf::Image mapSketch;
     std::shared_ptr<Map> map;
+
 public:
     /// Constructor / Destructor
     GameState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states);
@@ -34,6 +41,7 @@ public:
     void updatePlayerMovement(float dt);
 
     void update(float dt) override;
+
     void render(sf::RenderTarget &target) override;
 
 

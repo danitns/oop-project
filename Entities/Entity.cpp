@@ -52,7 +52,7 @@ void Entity::move() {
     this->sprite.move(this->velocity);
 }
 
-void Entity::windowCollision(const sf::Image& mapSketch) {
+void Entity::windowCollision(const sf::Image& mapSketch, const float dt) {
     this->hitbox = this->sprite.getGlobalBounds();
     this->hitbox.left += velocity.x;
     this->hitbox.top += velocity.y;
@@ -67,6 +67,13 @@ void Entity::windowCollision(const sf::Image& mapSketch) {
     {
         this->velocity.x = 0.f;
         this->sprite.setPosition(0.f, this->sprite.getPosition().y);
+    }
+    /// Bottom collision
+    if(this->hitbox.top >= static_cast<float>(mapSketch.getSize().y * CELL_SIZE) - this->hitbox.getSize().y)
+    {
+        this->dead = true;
+        this->velocity.x = 0.f;
+        this->die(dt);
     }
 
 }
@@ -163,6 +170,8 @@ void Entity::render(sf::RenderTarget &target) {
     }
     if(!this->onGround())
         this->animation->jump();
+    if(this->dead)
+        this->animation->die();
 
     target.draw(this->sprite);
 }

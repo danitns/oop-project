@@ -12,15 +12,17 @@ class Player: public Entity {
 private:
     /// Variables
     sf::Texture texture;
+    int dead;
 
     /// Functions
     void input(float dt) override;
+    void die(float dt) override;
 public:
     /// Constructor
     Player();
 
     /// Functions
-
+    int getDead() const;
 
 };
 

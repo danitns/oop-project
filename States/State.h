@@ -17,11 +17,13 @@ private:
     bool quit;
     int escapeCooldown;
 
+    sf::Font font;
+
     //sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;
 
 protected:
-    State(const State& other) = default;
+    State(const State &other) = default;
 
 public:
     /// Constructors / Destructors
@@ -44,6 +46,8 @@ public:
     [[nodiscard]] std::stack<std::shared_ptr<State>> &getStates() const;
 
     [[nodiscard]] sf::RenderWindow &getWindow() const;
+
+    const sf::Font &getFont() const;
 
     void setQuit(bool quit_);
 

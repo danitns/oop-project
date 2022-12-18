@@ -12,13 +12,12 @@ class MainMenuState :
 private:
     /// Variables
     sf::RectangleShape background;
-    sf::Font font;
+
+    sf::Text text;
 
     std::map<std::string, std::shared_ptr<Button>> buttons;
 
     /// Init functions
-    void initFonts();
-
     void initButtons();
 
 public:

@@ -6,26 +6,18 @@
 
 /// Init functions
 
-void MainMenuState::initFonts() {
-    if (!this->font.loadFromFile("Fonts/alagard.ttf")) {
-        std::cout << "ERROR::MainMenuState::initFonts";
-    }
-
-    std::cout << "initFonts" << "\n";
-}
-
 void MainMenuState::initButtons() {
-    this->buttons["GAME_STATE"] = std::make_shared<Button>(100, 100, 150, 50,
-                                             this->font, "New Game",
-                                             sf::Color(0, 51, 102),
-                                             sf::Color(26, 140, 255),
-                                             sf::Color(128, 191, 255));
+    this->buttons["GAME_STATE"] = std::make_shared<Button>(150, 50, this->getWindow().getSize().x / 2, 400,
+                                                           this->getFont(), "New Game",
+                                                           sf::Color(0, 51, 102),
+                                                           sf::Color(26, 140, 255),
+                                                           sf::Color(128, 191, 255));
 
-    this->buttons["EXIT_STATE"] = std::make_shared<Button>(100, 160, 150, 50,
-                                             this->font, "Quit Game",
-                                             sf::Color(0, 51, 102),
-                                             sf::Color(26, 140, 255),
-                                             sf::Color(128, 191, 255));
+    this->buttons["EXIT_STATE"] = std::make_shared<Button>(150, 50, this->getWindow().getSize().x / 2, 500,
+                                                           this->getFont(), "Quit Game",
+                                                           sf::Color(0, 51, 102),
+                                                           sf::Color(26, 140, 255),
+                                                           sf::Color(128, 191, 255));
 }
 
 /// Constructor / Destructor
@@ -33,11 +25,16 @@ MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<std::shared_pt
         : State(window, states) {
     std::cout << "MainMenuState Constructor\n";
 
-    this->initFonts();
     this->initButtons();
 
+    this->text.setFont(getFont());
+    this->text.setFillColor(sf::Color(255, 255, 255));
+    this->text.setString("SUPER MARIO");
+    this->text.setCharacterSize(75);
+    this->text.setPosition(float(this->getWindow().getSize().x) / 2 - this->text.getGlobalBounds().width / 2, 200.f);
+
     this->background.setSize(this->getWindowSize());
-    this->background.setFillColor(sf::Color(38, 38, 38, 255));
+    this->background.setFillColor(sf::Color(49, 118, 255));
 }
 
 std::shared_ptr<State> MainMenuState::clone() const {
@@ -77,10 +74,11 @@ void MainMenuState::renderButtons(sf::RenderTarget &target) {
 
 
 void MainMenuState::render(sf::RenderTarget &target) {
-
     target.draw(this->background);
     this->renderButtons(target);
+    target.draw(this->text);
 }
+
 
 
 

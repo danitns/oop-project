@@ -21,10 +21,14 @@ private:
     float gravityForce;
     float jumpForce;
 
+    bool dead = false;
+
     std::shared_ptr<AnimationComponent> animation;
 
     ///Functions
     virtual void input(float dt) = 0;
+
+    virtual void die(float dt) = 0;
 
 public:
     /// Constructor / Destructor
@@ -33,20 +37,28 @@ public:
     virtual ~Entity();
 
     /// Functions
-    void setTexture(sf::Texture& texture);
+    void setTexture(sf::Texture &texture);
+
     virtual void setPosition(float x, float y);
 
     sf::Vector2f getPosition();
+
     const sf::Vector2f &getVelocity() const;
+
     sf::FloatRect getGlobalBounds() const;
 
     virtual void updateVelocity(float dir_x, float dir_y, float dt);
+
     void move();
-    void windowCollision(const sf::Image& mapSketch);
+
+    void windowCollision(const sf::Image &mapSketch, float dt);
+
     void cellCollision(sf::FloatRect wall);
+
     bool onGround() const;
 
     virtual void update(float dt);
+
     virtual void render(sf::RenderTarget &target);
 };
 

@@ -8,22 +8,34 @@
 GameState::GameState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states)
         : State(window, states) {
     std::cout << "GameState Constructor\n";
+    this->stopGame = false;
 
     this->view = this->getWindow().getDefaultView();
+    this->view.move(0.f, -600.f);
+    this->getWindow().setView(this->view);
 
-    this->background.setSize(sf::Vector2f (3 * this->getWindowSize().x, this->getWindowSize().y));
-    this->background.setFillColor(sf::Color(49,118, 255));
-    this->background.setPosition(-200.f, 0.f);
+    this->gameOverText.setString("Game Over");
+    this->gameOverText.setFont(this->getFont());
+    this->gameOverText.setCharacterSize(50);
+    this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2,
+                                 this->gameOverText.getGlobalBounds().height / 2);
+    this->gameOverText.setPosition(float(this->getWindow().getSize().x) / 2, float(this->getWindow().getSize().y) / 2);
+
+    this->backgroundTexture.loadFromFile("Sprites/gameStateBackground.png");
+    this->background.setTexture(backgroundTexture);
+    this->background.setPosition(-200.f, -600.f);
+
     try {
         this->mapSketch.loadFromFile("Sprites/map1.png");
 
         this->map = std::make_shared<Map>(mapSketch);
-    } catch(const gameError& error) {
+    } catch (const gameError &error) {
         std::cout << error.what() << '\n';
     }
 }
 
 GameState::~GameState() {
+    Cell::setCellNum(0);
     /// Reset view
     this->getWindow().setView(this->getWindow().getDefaultView());
 }
@@ -38,12 +50,14 @@ void GameState::updatePlayerMovement(float dt) {
     this->player.update(dt);
 
     /// Window collision
-    this->player.windowCollision(this->mapSketch);
+    this->player.windowCollision(this->mapSketch, dt);
+    if (this->player.getDead() == 2)
+        this->stopGame = true;
 
     /// Map collision
-    for(const auto & i : this->map->getMap())
-        for(const auto & j : i)
-            if(j.getType() == Cell::Ground)
+    for (const auto &i: this->map->getMap())
+        for (const auto &j: i)
+            if (j.getType() == Cell::Ground)
                 this->player.cellCollision(j.getGlobalBounds());
 
     /// Apply velocity
@@ -52,18 +66,36 @@ void GameState::updatePlayerMovement(float dt) {
 }
 
 void GameState::update(const float dt) {
-    this->view.move(this->player.getVelocity().x, 0.f);
-    this->getWindow().setView(view);
+    if (!this->stopGame) {
+        this->view.move(this->player.getVelocity().x, 0.f);
+        this->getWindow().setView(view);
 
-    this->updateMousePositions();
-    this->updatePlayerMovement(dt);
+
+        if (viewChange < 600) {
+            this->view.move(0.f, 10.f);
+            viewChange += 10;
+        }
+
+        this->updateMousePositions();
+
+        this->updatePlayerMovement(dt);
+    } else
+        this->gameOverText.setPosition(this->view.getCenter());
+
 }
 
 void GameState::render(sf::RenderTarget &target) {
     target.draw(this->background);
     this->map->render(target);
+    if (this->stopGame) {
+        target.draw(this->gameOverText);
+    }
     this->player.render(target);
+
+
 }
+
+
 
 
 

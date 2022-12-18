@@ -10,29 +10,38 @@
 #include <iostream>
 #include <stack>
 #include <memory>
+
 const unsigned int SCREEN_HEIGHT = 600;
 const unsigned int SCREEN_WIDTH = 800;
 const int CELL_SIZE = 40;
 
 class Cell {
 public:
-    enum cellType{Ground, Pipe, Empty, Wall};
+    enum cellType {
+        Ground, Pipe, Empty, Wall
+    };
 
     /// Constructor
-    explicit Cell(const sf::Texture& texture , float pos_x, float pos_y, cellType type_ = Empty);
+    explicit Cell(const sf::Texture &texture, float pos_x, float pos_y, cellType type_ = Empty);
 
     ///Functions
     sf::FloatRect getGlobalBounds() const;
+
     cellType getType() const;
+
+    static unsigned int getCellNum();
+
+    static void setCellNum(unsigned int cellNum);
 
     void setPosition(float x, float y);
 
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget &target);
 
 private:
     /// Variables
     sf::Sprite sprite;
     cellType type;
+    static unsigned int cellNum;
 };
 
 
