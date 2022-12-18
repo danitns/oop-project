@@ -43,8 +43,6 @@ public:
 
     sf::Vector2f getPosition();
 
-    const sf::Vector2f &getVelocity() const;
-
     sf::FloatRect getGlobalBounds() const;
 
     virtual void updateVelocity(float dir_x, float dir_y, float dt);

@@ -35,10 +35,6 @@ sf::Vector2f Entity::getPosition() {
     return this->sprite.getPosition();
 }
 
-const sf::Vector2f &Entity::getVelocity() const {
-    return velocity;
-}
-
 sf::FloatRect Entity::getGlobalBounds() const {
     return this->sprite.getGlobalBounds();
 }
