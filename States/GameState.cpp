@@ -87,7 +87,7 @@ void GameState::update(const float dt) {
 
 void GameState::render(sf::RenderTarget &target) {
     target.draw(this->background);
-    this->map->render(target);
+    this->map->render(target, int(this->player.getPosition().x));
     if (this->stopGame) {
         target.draw(this->gameOverText);
     }

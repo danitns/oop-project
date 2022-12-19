@@ -12,6 +12,7 @@ private:
     /// Variables
     sf::Texture empty;
     sf::Texture ground;
+    sf::Texture wall;
     std::vector<std::vector<Cell>> map;
 
 public:
@@ -21,7 +22,7 @@ public:
     /// Functions
     const std::vector<std::vector<Cell>> &getMap() const;
 
-    void render(sf::RenderTarget &target);
+    void render(sf::RenderTarget &target, int pos_x);
 };
 
 
