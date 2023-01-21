@@ -36,7 +36,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
 
-    virtual ~Game();
+    ~Game();
 
     /// Functions
     void updateDt();

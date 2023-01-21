@@ -32,7 +32,7 @@ public:
     Button(float width, float height, float x, float y, const sf::Font &font, const std::string &text,
            const sf::Color &idleColor, const sf::Color &hoverColor, const sf::Color &pressedColor);
 
-    virtual ~Button();
+    ~Button();
 
     /// Getters
     bool isPressed() const;

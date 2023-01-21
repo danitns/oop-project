@@ -28,7 +28,7 @@ Game::Game() {
 
 [[maybe_unused]] Game::Game(const Game &other): event{other.event}, dtClock{other.dtClock}, dt{other.dt} {
     /// Deep copy pt states
-    this->states = *new std::stack<std::shared_ptr<State>>;
+    //this->states = *new std::stack<std::shared_ptr<State>>;
     std::stack<std::shared_ptr<State>> copy(other.states);
     std::stack<std::shared_ptr<State>> reverse_order;
     while(!copy.empty()) {

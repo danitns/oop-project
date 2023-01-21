@@ -5,12 +5,21 @@
 #include "Cell.h"
 
 unsigned int Cell::cellNum = 0;
+const sf::Color Cell::WALL_COLOR = sf::Color(100, 0, 0);
 
 /// Constructor
 Cell::Cell(const sf::Texture &texture, float pos_x, float pos_y, Cell::cellType type_) : type(type_) {
     cellNum++;
     std::cout << cellNum << '\n';
     this->sprite.setTexture(texture);
+    this->sprite.setPosition(sf::Vector2f(pos_x, pos_y));
+}
+
+Cell::Cell(const sf::Texture &texture, const sf::IntRect &textureRect, float pos_x, float pos_y, Cell::cellType type_): type(type_) {
+    cellNum++;
+    std::cout << cellNum << '\n';
+    this->sprite.setTexture(texture);
+    this->sprite.setTextureRect(textureRect);
     this->sprite.setPosition(sf::Vector2f(pos_x, pos_y));
 }
 
@@ -38,8 +47,3 @@ void Cell::setPosition(float x, float y) {
 void Cell::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
 }
-
-
-
-
-

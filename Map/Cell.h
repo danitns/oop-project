@@ -20,9 +20,11 @@ public:
     enum cellType {
         Ground, Pipe, Empty, Wall
     };
-
+    const static sf::Color WALL_COLOR;
     /// Constructor
-    explicit Cell(const sf::Texture &texture, float pos_x, float pos_y, cellType type_ = Empty);
+    Cell(const sf::Texture &texture, float pos_x, float pos_y, cellType type_ = Empty);
+
+    Cell(const sf::Texture &texture, const sf::IntRect &textureRect, float pos_x, float pos_y, cellType type_ = Empty);
 
     ///Functions
     sf::FloatRect getGlobalBounds() const;

@@ -16,13 +16,13 @@ void Player::input(float dt) {
 
 }
 
-void Player::die(float dt) {
-    if (!this->dead) {
-        this->updateVelocity(0.f, float(-1.6), dt);
-        this->dead = 1;
-    } else
-        this->dead = 2;
-}
+//void Player::die(float dt) {
+//    if (!this->getDead()) {
+//        this->updateVelocity(0.f, -1.2f, dt);
+//        this->setDead(1);
+//    } else
+//        this->setDead(2);
+//}
 
 /// Constructor
 Player::Player() {
@@ -31,13 +31,7 @@ Player::Player() {
     this->texture.loadFromFile("Sprites/marioSprite.png");
     this->setTexture(texture);
 
-    this->dead = 0;
-
     this->setPosition(100.f, 400.f);
-}
-
-int Player::getDead() const {
-    return dead;
 }
 
 

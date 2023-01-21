@@ -6,6 +6,7 @@
 #define OOP_MAP_H
 
 #include "Cell.h"
+#include "../Entities/Enemy.h"
 
 class Map {
 private:
@@ -13,7 +14,9 @@ private:
     sf::Texture empty;
     sf::Texture ground;
     sf::Texture wall;
+    sf::Texture pipe;
     std::vector<std::vector<Cell>> map;
+    std::vector<std::shared_ptr<Enemy>> enemies;
 
 public:
     /// Constructor
@@ -21,6 +24,8 @@ public:
 
     /// Functions
     const std::vector<std::vector<Cell>> &getMap() const;
+
+    const std::vector<std::shared_ptr<Enemy>> &getEnemies() const;
 
     void render(sf::RenderTarget &target, int pos_x);
 };

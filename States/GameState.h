@@ -40,6 +40,8 @@ public:
     /// Functions
     void updatePlayerMovement(float dt);
 
+    void updateEnemies(float dt);
+
     void update(float dt) override;
 
     void render(sf::RenderTarget &target) override;
