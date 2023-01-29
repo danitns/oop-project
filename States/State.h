@@ -19,9 +19,6 @@ private:
 
     sf::Font font;
 
-    //sf::Vector2i mousePosScreen;
-    sf::Vector2i mousePosWindow;
-
 protected:
     State(const State &other) = default;
 
@@ -33,7 +30,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const State &state);
 
-    [[nodiscard]] virtual std::shared_ptr<State> clone() const = 0;
+    [[maybe_unused]] virtual std::shared_ptr<State> clone() const = 0;
 
 
     /// Functions
@@ -41,7 +38,10 @@ public:
 
     [[nodiscard]] const bool &getQuit() const;
 
-    [[nodiscard]] const sf::Vector2i &getMousePosWindow() const;
+    template<typename T>
+    sf::Vector2<T> getMousePosWindow() const {
+        return sf::Vector2<T>(sf::Mouse::getPosition(this->window).x, sf::Mouse::getPosition(this->window).y);
+    }
 
     [[nodiscard]] std::stack<std::shared_ptr<State>> &getStates() const;
 
@@ -51,13 +51,11 @@ public:
 
     void setQuit(bool quit_);
 
-    virtual void updateMousePositions();
-
     virtual void update(float dt) = 0;
 
     virtual void render(sf::RenderTarget &target) = 0;
 
+    virtual int getType();
 };
-
 
 #endif //OOP_STATE_H

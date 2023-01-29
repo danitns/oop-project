@@ -23,14 +23,13 @@ void MainMenuState::initButtons() {
 /// Constructor / Destructor
 MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states)
         : State(window, states) {
-    std::cout << "MainMenuState Constructor\n";
-
     this->initButtons();
 
     this->text.setFont(getFont());
     this->text.setFillColor(sf::Color(255, 255, 255));
     this->text.setString("SUPER MARIO");
     this->text.setCharacterSize(75);
+    this->text.setOutlineThickness(2.f);
     this->text.setPosition(float(this->getWindow().getSize().x) / 2 - this->text.getGlobalBounds().width / 2, 200.f);
 
     this->background.setSize(this->getWindowSize());
@@ -45,7 +44,7 @@ std::shared_ptr<State> MainMenuState::clone() const {
 
 void MainMenuState::updateButtons() {
     for (auto const &button: this->buttons) {
-        button.second->update(static_cast<sf::Vector2f>(this->getMousePosWindow()));
+        button.second->update(this->getMousePosWindow<float>());
     }
 
     if (this->buttons["GAME_STATE"]->isPressed()) {
@@ -61,8 +60,6 @@ void MainMenuState::updateButtons() {
 void MainMenuState::update(const float dt) {
     if (dt == 0) {
     }
-
-    this->updateMousePositions();
     this->updateButtons();
 }
 

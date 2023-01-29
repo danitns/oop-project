@@ -6,7 +6,6 @@
 
 /// Constructor / Destructor
 Entity::Entity() {
-    std::cout << "Entity Constructor\n";
     this->dead = 0;
 
     this->velocity = sf::Vector2f(0.f, -1.f);
@@ -18,8 +17,13 @@ Entity::Entity() {
     this->animation = std::make_shared<AnimationComponent>(this->sprite);
 }
 
-Entity::~Entity() {
-    std::cout << "Entity Destructor\n";
+Entity::Entity(float maxVelocity, float acceleration, float deceleration) : maxVelocity(maxVelocity),
+    acceleration(acceleration), deceleration(deceleration) {
+    this->dead = 0;
+    this->velocity = sf::Vector2f(0.f, -1.f);
+    this->jumpForce = 1500.f;
+    this->gravityForce = 100.f;
+    this->animation = std::make_shared<AnimationComponent>(this->sprite);
 }
 
 
@@ -32,12 +36,8 @@ void Entity::setPosition(const float x, const float y) {
     this->sprite.setPosition(sf::Vector2f(x, y));
 }
 
-void Entity::setMaxVelocity(float maxVelocity_) {
-    Entity::maxVelocity = maxVelocity_;
-}
-
 void Entity::die(float dt) {
-    if (!this->getDead()) {
+    if (!dead) {
         this->updateVelocity(0.f, -0.9f, dt);
         this->dead = 1;
     } else
@@ -239,6 +239,8 @@ void Entity::render(sf::RenderTarget &target) {
 
     target.draw(this->sprite);
 }
+
+
 
 
 

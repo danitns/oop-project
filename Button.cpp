@@ -25,12 +25,6 @@ Button::Button(float width, float height, float x, float y, const sf::Font &font
     );
 
     this->shape.setFillColor(this->idleColor);
-
-    std::cout << "Button Constructor" << "\n";
-}
-
-Button::~Button() {
-    std::cout << "Button Destructor\n";
 }
 
 /// Getters

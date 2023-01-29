@@ -7,7 +7,6 @@
 /// Constructor / Destructor
 GameState::GameState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states)
         : State(window, states) {
-    std::cout << "GameState Constructor\n";
     this->stopGame = false;
 
     this->view = this->getWindow().getDefaultView();
@@ -17,6 +16,7 @@ GameState::GameState(sf::RenderWindow &window, std::stack<std::shared_ptr<State>
     this->gameOverText.setString("Game Over");
     this->gameOverText.setFont(this->getFont());
     this->gameOverText.setCharacterSize(50);
+    this->gameOverText.setOutlineThickness(2.f);
     this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2,
                                  this->gameOverText.getGlobalBounds().height / 2);
     this->gameOverText.setPosition(float(this->getWindow().getSize().x) / 2, float(this->getWindow().getSize().y) / 2);
@@ -55,8 +55,7 @@ void GameState::updatePlayerMovement(float dt) {
         this->stopGame = true;
 
 
-    if(this->player.getDead() == 0)
-    {
+    if (this->player.getDead() == 0) {
         /// Map collision
         for (const auto &i: this->map->getMap())
             for (const auto &j: i)
@@ -64,9 +63,9 @@ void GameState::updatePlayerMovement(float dt) {
                     this->player.cellCollision(j.getGlobalBounds());
 
         /// Enemy collision
-        for(const auto &i: this->map->getEnemies())
-            if(i->getDead() == 0)
-                if(this->player.entityCollision(i->getGlobalBounds(), dt))
+        for (const auto &i: this->map->getEnemies())
+            if (i->getDead() == 0)
+                if (this->player.entityCollision(i->getGlobalBounds(), dt))
                     i->die(dt);
     }
 
@@ -74,8 +73,7 @@ void GameState::updatePlayerMovement(float dt) {
     /// Apply velocity
     this->player.move();
 
-    if(this->player.getPosition().x > float(this->mapSketch.getSize().x * CELL_SIZE) - 150.f)
-    {
+    if (this->player.getPosition().x > float(this->mapSketch.getSize().x * CELL_SIZE) - 150.f) {
         this->gameOverText.setString("Level Completed!");
         this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2,
                                      this->gameOverText.getGlobalBounds().height / 2);
@@ -95,7 +93,7 @@ void GameState::updateEnemies(float dt) {
             e->windowCollision(this->mapSketch, dt);
 
             /// Map collision
-            if(e->getDead() == 0)
+            if (e->getDead() == 0)
                 for (const auto &i: this->map->getMap())
                     for (const auto &j: i)
                         if (j.getType() == Cell::Ground || j.getType() == Cell::Wall || j.getType() == Cell::Pipe)
@@ -108,22 +106,20 @@ void GameState::updateEnemies(float dt) {
 }
 
 void GameState::update(const float dt) {
+//    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+//        this->getStates().push(std::make_shared<PausedState>(this->getWindow(), this->getStates()));
     if (!this->stopGame) {
 
         if (viewChange < 600) {
             this->view.move(0.f, 10.f);
             viewChange += 10;
         } else {
-//            this->view.setCenter(std::min<float>(
-//                    std::max<float>(this->player.getPosition().x + this->player.getGlobalBounds().width, 400.f),
-//                    float(this->mapSketch.getSize().x) * CELL_SIZE - 400.f), 300.f);
             this->view.setCenter(
                     std::clamp(this->player.getPosition().x, 400.f,
                                float(this->mapSketch.getSize().x) * CELL_SIZE - 400.f),
                     300.f);
         }
         this->getWindow().setView(view);
-        this->updateMousePositions();
 
         this->updatePlayerMovement(dt);
         this->updateEnemies(dt);
@@ -140,9 +136,14 @@ void GameState::render(sf::RenderTarget &target) {
     }
     for (const auto &e: this->map->getEnemies())
         if (e->getPosition().x > this->view.getCenter().x - (this->view.getSize().x / 2 + 50) &&
-            e->getPosition().x < this->view.getCenter().x + (this->view.getSize().x / 2 + 50) && (e->getDead() == 0  || e->getDead() == 1))
-                e->render(target);
+            e->getPosition().x < this->view.getCenter().x + (this->view.getSize().x / 2 + 50) &&
+            (e->getDead() == 0 || e->getDead() == 1))
+            e->render(target);
     this->player.render(target);
+}
+
+int GameState::getType() {
+    return 1;
 }
 
 

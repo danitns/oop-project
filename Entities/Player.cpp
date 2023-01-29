@@ -16,18 +16,8 @@ void Player::input(float dt) {
 
 }
 
-//void Player::die(float dt) {
-//    if (!this->getDead()) {
-//        this->updateVelocity(0.f, -1.2f, dt);
-//        this->setDead(1);
-//    } else
-//        this->setDead(2);
-//}
-
 /// Constructor
 Player::Player() {
-    std::cout << "Player Constructor\n";
-
     this->texture.loadFromFile("Sprites/marioSprite.png");
     this->setTexture(texture);
 

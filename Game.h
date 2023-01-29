@@ -28,15 +28,13 @@ public:
     /// Constructors / Destructors:
     Game();
 
-    [[maybe_unused]] Game(const Game &other);
+    Game(const Game &other) = delete;
 
-    [[maybe_unused]] static void swap(Game &game1, Game &game2);
-
-    Game &operator=(Game other);
-
-    friend std::ostream &operator<<(std::ostream &os, const Game &game);
+    Game &operator=(Game other) = delete;
 
     ~Game();
+
+    static Game &get_game();
 
     /// Functions
     void updateDt();

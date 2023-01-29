@@ -32,14 +32,14 @@ public:
     /// Constructor / Destructor
     Entity();
 
-    virtual ~Entity();
+    Entity(float maxVelocity, float acceleration, float deceleration);
+
+    virtual ~Entity() = default;
 
     /// Functions
     void setTexture(sf::Texture &texture);
 
     virtual void setPosition(float x, float y);
-
-    void setMaxVelocity(float maxVelocity_);
 
     void die(float dt);
 

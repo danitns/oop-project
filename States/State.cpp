@@ -6,12 +6,11 @@
 
 /// Constructor / Destructor
 State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &states) : states{states}, window{window} {
-    std::cout << "State Constructor\n";
 
     this->font.loadFromFile("Fonts/alagard.ttf");
 
     //this->mousePosScreen = sf::Vector2i(0, 0);
-    this->mousePosWindow = sf::Vector2i(0, 0);
+    //this->mousePosWindow = sf::Vector2i(0, 0);
     this->quit = false;
     this->escapeCooldown = 0;
 }
@@ -35,9 +34,9 @@ const bool &State::getQuit() const {
     return this->quit;
 }
 
-const sf::Vector2i &State::getMousePosWindow() const {
-    return mousePosWindow;
-}
+//const sf::Vector2i &State::getMousePosWindow() const {
+//    return mousePosWindow;
+//}
 
 std::stack<std::shared_ptr<State>> &State::getStates() const {
     return states;
@@ -51,11 +50,9 @@ const sf::Font &State::getFont() const {
     return font;
 }
 
-void State::updateMousePositions() {
-    //this->mousePosScreen = sf::Mouse::getPosition();
-    this->mousePosWindow = sf::Mouse::getPosition(this->window);
+int State::getType() {
+    return 0;
 }
-
 
 
 

@@ -35,8 +35,6 @@ public:
 
     std::shared_ptr<State> clone() const override;
 
-    //friend std::ostream& operator<<(std::ostream& os, const GameState& gameState);
-
     /// Functions
     void updatePlayerMovement(float dt);
 
@@ -45,6 +43,8 @@ public:
     void update(float dt) override;
 
     void render(sf::RenderTarget &target) override;
+
+    int getType() override;
 
 
 };

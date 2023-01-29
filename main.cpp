@@ -4,7 +4,7 @@
 // #include <thread>
 
 int main() {
-    Game game;
+    auto &game = Game::get_game();
     game.run();
     return 0;
 }

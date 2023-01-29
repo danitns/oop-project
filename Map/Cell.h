@@ -18,9 +18,10 @@ const int CELL_SIZE = 40;
 class Cell {
 public:
     enum cellType {
-        Ground, Pipe, Empty, Wall
+        Ground, Pipe, Empty, Wall, Cloud, EndSign, Bush
     };
     const static sf::Color WALL_COLOR;
+
     /// Constructor
     Cell(const sf::Texture &texture, float pos_x, float pos_y, cellType type_ = Empty);
 
