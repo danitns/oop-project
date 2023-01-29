@@ -40,9 +40,6 @@ GameState::~GameState() {
     this->getWindow().setView(this->getWindow().getDefaultView());
 }
 
-std::shared_ptr<State> GameState::clone() const {
-    return std::make_shared<GameState>(*this);
-}
 
 /// Functions
 void GameState::updatePlayerMovement(float dt) {

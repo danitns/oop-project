@@ -36,9 +36,6 @@ MainMenuState::MainMenuState(sf::RenderWindow &window, std::stack<std::shared_pt
     this->background.setFillColor(sf::Color(49, 118, 255));
 }
 
-std::shared_ptr<State> MainMenuState::clone() const {
-    return std::make_shared<MainMenuState>(*this);
-}
 
 /// Functions
 

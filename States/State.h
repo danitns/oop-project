@@ -30,7 +30,6 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const State &state);
 
-    [[maybe_unused]] virtual std::shared_ptr<State> clone() const = 0;
 
 
     /// Functions

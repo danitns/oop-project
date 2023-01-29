@@ -38,9 +38,6 @@ PausedState::PausedState(sf::RenderWindow &window, std::stack<std::shared_ptr<St
     this->background.setFillColor(sf::Color(49, 118, 255));
 }
 
-std::shared_ptr<State> PausedState::clone() const {
-    return std::make_shared<PausedState>(*this);
-}
 
 void PausedState::updateButtons() {
     for (auto const &button: this->buttons) {
