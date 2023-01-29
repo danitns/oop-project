@@ -33,7 +33,7 @@ public:
 
     ~GameState() override;
 
-    std::shared_ptr<State> clone() const override;
+    [[maybe_unused]] std::shared_ptr<State> clone() const override;
 
     /// Functions
     void updatePlayerMovement(float dt);

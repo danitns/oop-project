@@ -26,7 +26,7 @@ public:
 
     ~MainMenuState() override = default;
 
-    std::shared_ptr<State> clone() const override;
+    [[maybe_unused]] std::shared_ptr<State> clone() const override;
 
     /// Functions
     void updateButtons();
