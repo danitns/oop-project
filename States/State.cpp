@@ -9,8 +9,6 @@ State::State(sf::RenderWindow &window, std::stack<std::shared_ptr<State>> &state
 
     this->font.loadFromFile("Fonts/alagard.ttf");
 
-    //this->mousePosScreen = sf::Vector2i(0, 0);
-    //this->mousePosWindow = sf::Vector2i(0, 0);
     this->quit = false;
     this->escapeCooldown = 0;
 }
@@ -33,10 +31,6 @@ void State::setQuit(bool quit_) {
 const bool &State::getQuit() const {
     return this->quit;
 }
-
-//const sf::Vector2i &State::getMousePosWindow() const {
-//    return mousePosWindow;
-//}
 
 std::stack<std::shared_ptr<State>> &State::getStates() const {
     return states;
