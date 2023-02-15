@@ -3,7 +3,7 @@
 
 ### Gameplay:
 
-![alt-text](https://github.com/danitns/oop-project/tree/main/Gameplay/gameplay.gif)
+![alt-text](https://github.com/danitns/oop-project/blob/main/Gameplay/gameplay.gif)
 
 ### Tema 0
 
